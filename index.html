@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        .button {
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+        }
+        
+        .button1 {background-color: #4CAF50;} /* Green */
+        .button2 {background-color: #ba7000;} /* Blue */
+        </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Budget</title>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="main.css">
+    <!-- This is an SEO Change -->
+    <link rel="canonical" href="https://canonical.com">
 </head>
 <body>
 
@@ -15,7 +33,42 @@
             <li><a href="about.html">About</a></li>
             <li><a href="login.html">Login</a></li>
             <li><a href="https://google.com">Google</a></li>
+            <!-- This is an SEO Change -->
+            <li><a href="https://youtube.com" rel="nofollow">YouTube</a></li>
+            <!-- This is an SEO Change -->
+            <li><img src="yt-logo.gif" alt="YouTube logo" style="width:40px; height:40px"></li>
         </ul>
+    </div>
+
+    <!-- <div class="menu">
+        <div class="center">
+            <h2 style="color:white;"><strong>Change Page Text Size:</strong></h2>
+            <input type="range" min="30" max="900" id="slider" value="30" onchange="changeSizeBySlider()"/>
+            <div id="change-size" class="change-size">
+                <h1>Test text</h1>
+            </div>
+        </div>
+    </div>
+    <button type="button" name="btn1">-A</button>
+    <button type="button" name="btn2">A</button>
+    <button type="button" name="btn3">A+</button> -->
+
+    <!-- <header class="menu">
+        <nav>
+            <a href="/">Homepage</a>
+            <a href="about.html">About</a>
+            <a href="login.html">Login</a>
+            <a href="https://google.com">Google</a>
+        </nav>
+    </header> -->
+
+    <!-- This is an A11y Change -->
+    <div class="center">
+        <button class="button button2" onclick="window.location.href='#main'">
+            <h2>
+                Skip to content
+            </h2>
+        </button>
     </div>
 
     <div class="hero">
@@ -27,6 +80,9 @@
 
         <div class="page-area">
 
+            <main id="main">
+            <!-- This is a Semantic HTML Change -->
+            <aside>
             <div class="text-box">
                 <h1>Stay on track</h1>
                 <p>
@@ -34,6 +90,8 @@
                     you would get surprised! Proper budget management depends on real data... and this
                     app will help you with that!
                 </p>
+                <!-- This is an A11y Change -->
+                <img src="train.gif" alt="train" style="width:100px; height:90px;">
             </div>
     
             <div class="text-box">
@@ -41,6 +99,8 @@
                 <p>
                     What if your clothing budget ended? You will get an alert. The goal is to never go over the budget.
                 </p>
+                <!-- This is an A11y Change -->
+                <img src="red-alert.gif" alt="red alert warning danger" style="width:70px; height:70px">
             </div>
     
             <div class="text-box">
@@ -58,54 +118,75 @@
                     This app is free!!! And you are the only one holding your data!
                 </p>
             </div>
+            </aside>
     
-            <div class="text-box">
+            <!-- This is a Semantic HTML Change -->
+            <article class="text-box">
                 <h1>Stay on track</h1>
                 <p>
                     Do you know where you are spending your money? If you really stop to track it down,
                     you would get surprised! Proper budget management depends on real data... and this
                     app will help you with that!
                 </p>
-            </div>
+            </article>
     
-            <div class="text-box">
+            <!-- This is a Semantic HTML Change -->
+            <article class="text-box">
                 <h1>Alerts</h1>
                 <p>
                     What if your clothing budget ended? You will get an alert. The goal is to never go over the budget.
                 </p>
-            </div>
+            </article>
     
-            <div class="text-box">
+            <!-- This is a Semantic HTML Change -->
+            <article class="text-box">
                 <h1>Results</h1>
                 <p>
                     People who stick to a financial plan, budgeting every expense, get out of debt faster!
                     Also, they to live happier lives... since they expend without guilt or fear... 
                     because they know it is all good and accounted for.
                 </p>
-            </div>
+            </article>
     
-            <div class="text-box">
+            <!-- This is a Semantic HTML Change -->
+            <article class="text-box">
                 <h1>Free</h1>
                 <p>
                     This app is free!!! And you are the only one holding your data!
                 </p>
-            </div>
+            </article>
 
         </div>
 
-    </div>
-
-    <div class="bottom">
-        <div class="center">
-            All rights reserved &copy; Fabio Nolasco
-        </div>
     </div>
 
     <!-- This is a Semantic HTML Change -->
+    <footer class="bottom">
+        <div class="center">
+            All rights reserved &copy; Fabio Nolasco
+        </div>
+        <br>
+        <!-- This is an A11y Change -->
+        <div class="center">
+            <button class="button button1" style="color:white; height:88px;" onclick="window.location.href='#top'">
+                <h2>
+                    Go to top of page
+                </h2>
+            </button>
+        </div>
+    </footer>
 
-    <!-- This is an SEO Change -->
-
-    <!-- This is an A11y Change -->
-
+    <!-- <script>
+        var cont = document.getElementById("change-size");
+        function changeSizeByBtn(size) {
+            // Set value of the parameter as fontSize
+            cont.style.fontSize = size;
+        }
+        function changeSizeBySlider() {
+            var slider = document.getElementById("slider");
+            // Set slider value as fontSize
+            cont.style.fontSize = slider.value;
+        }
+    </script> -->
 </body>
 </html>
