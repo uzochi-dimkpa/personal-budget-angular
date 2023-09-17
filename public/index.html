@@ -215,10 +215,11 @@
             data: data
         }; */
         
+        /**/
         var datasource = {
             datasets: [
                 {
-                    data: [30, 350, 90, 45, 20, 88, 112],
+                    data: [30, 350, 90, 45],
                     backgroundColor: [
                         '#ffcd56',
                         '#ff6384',
@@ -234,18 +235,16 @@
                 'Eat out',
                 'Rent',
                 'Groceries',
-                'Laundry',
-                'Gas',
-                'Insurance',
-                'Donation'
+                'Laundry'
             ]
         };
+        /**/
 
-        function createChart() {
+        function createChart(data_source) {
             var ctx = document.getElementById("myChart").getContext("2d");
             var myDoughnutChart = new Chart(ctx, {
                 type: 'doughnut',
-                data: datasource,
+                data: data_source,
             });
         }; // -- createChart();
 
@@ -253,15 +252,19 @@
             axios.get('/Budget')
             .then(function (res) {
                 console.log(res);
-                /**/
+                createChart(res.data);
+                // -- var data_source = res.data;
+                /*
                 for (var i = 0; i < res.data.length; i++) {
                     datasource.datasets[0].data[i] = res.data[i].budget;
+                    // -- data_source.datasets[0].data[i] = res.data.datasets[0].data[i];
                     datasource.labels[i] = res.data[i].title;
+                    // -- data_source.labels[i] = res.data.labels[i];
                 };
-                createChart();
+                // -- createChart(data_source);
                 /**/
             });
-        }; getBudget();
+        }; getBudget(); // -- createChart();
     </script>
 </body>
 </html>
