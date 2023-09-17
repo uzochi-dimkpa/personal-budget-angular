@@ -154,6 +154,16 @@
                 <p>
                     This app is free!!! And you are the only one holding your data!
                 </p>
+                <p>
+                    <!-- RESIZE DOES NOT WORK -->
+                    <!-- <canvas id="myChart" width="400" height="400"></canvas> -->
+
+                    <!-- <div style="position: relative; padding-top: 50%; padding-left: 50%;"> -->
+                        <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    <!-- </div> -->
+                </p>
             </article>
 
         </div>
@@ -188,5 +198,70 @@
             cont.style.fontSize = slider.value;
         }
     </script> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js" integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js" integrity="sha512-6HrPqAvK+lZElIZ4mZ64fyxIBTsaX5zAFZg2V/2WT+iKPrFzTzvx6QAsLW2OaLwobhMYBog/+bvmIEEGXi0p1w==" crossorigin="anonymous" referrerpolicy="no-referrer">import Chart from 'chart.min.js';</script>
+
+    <!-- BROKEN -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer">import Chart from 'chart.min.js';</script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.js" integrity="sha512-6LKCH7i2+zMNczKuCT9ciXgFCKFp3MevWTZUXDlk7azIYZ2wF5LRsrwZqO7Flt00enUI+HwzzT5uhOvy6MNPiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
+    <script>
+        /* BROKEN */
+        /* import Chart from 'chart.min.js'; /**/
+
+        /* const config = {
+            type: 'doughnut',
+            data: data
+        }; */
+        
+        var datasource = {
+            datasets: [
+                {
+                    data: [30, 350, 90, 45, 20, 88, 112],
+                    backgroundColor: [
+                        '#ffcd56',
+                        '#ff6384',
+                        '#36a2eb',
+                        '#fd6b19',
+                        '#ca6274',
+                        '#19cd5a',
+                        '#ed2f97'
+                    ]
+                }
+            ],
+            labels: [
+                'Eat out',
+                'Rent',
+                'Groceries',
+                'Laundry',
+                'Gas',
+                'Insurance',
+                'Donation'
+            ]
+        };
+
+        function createChart() {
+            var ctx = document.getElementById("myChart").getContext("2d");
+            var myDoughnutChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: datasource,
+            });
+        }; // -- createChart();
+
+        function getBudget() {
+            axios.get('/Budget')
+            .then(function (res) {
+                console.log(res);
+                /**/
+                for (var i = 0; i < res.data.length; i++) {
+                    datasource.datasets[0].data[i] = res.data[i].budget;
+                    datasource.labels[i] = res.data[i].title;
+                };
+                createChart();
+                /**/
+            });
+        }; getBudget();
+    </script>
 </body>
 </html>
