@@ -1,6 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- AUTHOR: dbuezas @ https://gist.github.com/dbuezas -->
+    <style>
+        body {
+          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+          width: 960px;
+          height: 500px;
+          position: relative;
+        }
+        
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        path.slice{
+            stroke-width:2px;
+        }
+        
+        polyline{
+            opacity: .3;
+            stroke: black;
+            stroke-width: 2px;
+            fill: none;
+        }
+        
+    </style>
+    <!-- END AUTHOR -->
     <style>
         .button {
           border: none;
@@ -199,6 +226,8 @@
         }
     </script> -->
 
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js" integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js" integrity="sha512-6HrPqAvK+lZElIZ4mZ64fyxIBTsaX5zAFZg2V/2WT+iKPrFzTzvx6QAsLW2OaLwobhMYBog/+bvmIEEGXi0p1w==" crossorigin="anonymous" referrerpolicy="no-referrer">import Chart from 'chart.min.js';</script>
 
@@ -215,7 +244,7 @@
             data: data
         }; */
         
-        /**/
+        /*
         var datasource = {
             datasets: [
                 {
@@ -249,22 +278,319 @@
         }; // -- createChart();
 
         function getBudget() {
-            axios.get('/Budget')
+            axios.get('/budget')
             .then(function (res) {
                 console.log(res);
                 createChart(res.data);
-                // -- var data_source = res.data;
-                /*
-                for (var i = 0; i < res.data.length; i++) {
-                    datasource.datasets[0].data[i] = res.data[i].budget;
-                    // -- data_source.datasets[0].data[i] = res.data.datasets[0].data[i];
-                    datasource.labels[i] = res.data[i].title;
-                    // -- data_source.labels[i] = res.data.labels[i];
-                };
-                // -- createChart(data_source);
-                /**/
             });
-        }; getBudget(); // -- createChart();
+        }; getBudget();
     </script>
+    <div style="padding-top: 100px; padding-bottom: 10px;"><hr></div>
+
+    <!-- AUTHOR: dbuezas @ https://gist.github.com/dbuezas -->
+    <button class="randomize">randomize</button>
+
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script>
+    // -- import axios from 'axios';
+
+    var svg = d3.select("body")
+        .append("svg")
+        .append("g")
+
+    svg.append("g")
+        .attr("class", "slices");
+    svg.append("g")
+        .attr("class", "labels");
+    svg.append("g")
+        .attr("class", "lines");
+
+    var width = 960,
+        height = 450,
+        radius = Math.min(width, height) / 2;
+
+    var pie = d3.layout.pie()
+        .sort(null)
+        .value(function(d) {
+            return d.value;
+        });
+
+    var arc = d3.svg.arc()
+        .outerRadius(radius * 0.8)
+        .innerRadius(radius * 0.4);
+
+    var outerArc = d3.svg.arc()
+        .innerRadius(radius * 0.9)
+        .outerRadius(radius * 0.9);
+
+    svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    var key = function(d){ return d.data.label; };
+
+    /*
+    var json_data;
+    fetch('/budget')
+    .then(response => response.json())
+    .then(data => console.log(data));
+    // -- console.log(json_data.json());
+    /**/
+
+    console.log(
+        Promise.resolve(
+            fetch('/budget')
+            .then(response => response.json())
+            .then(data => data.labels)
+        )
+    );
+    
+    fetch('/budget')
+    .then(response => response.json())
+    .then(data => {
+        // -- const json_data = data;
+        console.log(data);
+    });
+    
+    /*
+    console.log(
+        axios.get('/budget')
+        .then(function(res) {
+            res => res.json();
+        })
+    );
+    /**/
+    
+    /*
+    function getData() {
+            axios.get('/budget')
+            .then(function (res) {
+                console.log(res);
+                createChart(res.data);
+            });
+        }; getData();
+    /**/
+
+    /*
+    function getBudget() {
+        axios.get('/budget')
+        .then(function (res) {
+            console.log(res);
+            createChart(res.data);
+        });
+    }; getBudget();
+    /**/
+    
+    /*
+    var url = '/budget';
+
+    fetch('/budget').then(
+        function(u){ return u.json();}
+    ).then(
+        function(json){
+            json_data = json;
+        }
+    );
+    /**/
+
+    /*
+    async function getData(url) {
+        const response = await fetch(url);
+        
+        return response.json();
+    }
+    
+    const data = await getData(url);
+
+    console.log({ data })
+    /**/
+    // -- console.log(json_data);
+
+    // -- console.log(out);
+
+    /*
+    let json_data
+    d3.json('/budget', function(data) {
+        console.log(data);
+    });
+    /**/
+
+    /*
+    function getData() {
+        axios.get('/budget')
+        .then(function (res) {
+            res.data = json_data;
+        });
+    }; getData(); console.log(json_data);
+    /**/
+
+    /*
+    const address = fetch("/budget")
+  .then((response) => response.json())
+  .then((user) => {
+    return user.labels;
+  });
+
+const printAddress = () => {
+  address.then((a) => {
+    console.log(a);
+  });
+};
+
+const out = fetch("/budget")
+.then((response) => response.json()).resolve();
+/**/
+
+    
+    var color;    
+    function getColor () { axios.get('/budget')
+        .then(function (res) {
+            console.log(res.data.datasets[0].backgroundColor);
+
+            color = d3.scale.ordinal()
+            // -- .domain(["Lorem ipsum", "dolor sit", "amet", "consectetur", "adipisicing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt"])
+            .domain(res.data.labels)
+            // -- .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+            .range(res.data.datasets[0].backgroundColor);
+
+        });
+    }; getColor();
+
+    /**/
+    var color = d3.scale.ordinal()
+        // -- .domain(["Lorem ipsum", "dolor sit", "amet", "consectetur", "adipisicing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt"])
+        .domain([
+        "Eat out",
+        "Rent",
+        "Groceries",
+        "Laundry",
+        "Gifts",
+        "Insurance",
+        "Donation",
+        "Travel"
+        ])
+        // -- .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+        .range([
+        "#ffcd56",
+        "#ff6384",
+        "#36a2eb",
+        "#fd6b19",
+        "#ca6274",
+        "#19cd5a",
+        "#ed2f97",
+        "#707070"
+        ]);
+    /**/
+
+    function randomData (){
+        // -- console.log(__data.labels);
+        // -- _data = getData();
+        var labels = color.domain();
+        return labels.map(function(label){
+            return { label: label, value: Math.random() }
+            // -- return { label: label, value: getBudget().data }
+        });
+    }
+
+    change(randomData());
+
+    d3.select(".randomize")
+        .on("click", function(){
+            getColor();
+            change(randomData());
+        });
+
+
+    function change(data) {
+
+        /* ------- PIE SLICES -------*/
+        var slice = svg.select(".slices").selectAll("path.slice")
+            .data(pie(data), key);
+
+        slice.enter()
+            .insert("path")
+            .style("fill", function(d) { return color(d.data.label); })
+            .attr("class", "slice");
+
+        slice		
+            .transition().duration(1000)
+            .attrTween("d", function(d) {
+                this._current = this._current || d;
+                var interpolate = d3.interpolate(this._current, d);
+                this._current = interpolate(0);
+                return function(t) {
+                    return arc(interpolate(t));
+                };
+            })
+
+        slice.exit()
+            .remove();
+
+        /* ------- TEXT LABELS -------*/
+
+        var text = svg.select(".labels").selectAll("text")
+            .data(pie(data), key);
+
+        text.enter()
+            .append("text")
+            .attr("dy", ".35em")
+            .text(function(d) {
+                return d.data.label;
+            });
+        
+        function midAngle(d){
+            return d.startAngle + (d.endAngle - d.startAngle)/2;
+        }
+
+        text.transition().duration(1000)
+            .attrTween("transform", function(d) {
+                this._current = this._current || d;
+                var interpolate = d3.interpolate(this._current, d);
+                this._current = interpolate(0);
+                return function(t) {
+                    var d2 = interpolate(t);
+                    var pos = outerArc.centroid(d2);
+                    pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
+                    return "translate("+ pos +")";
+                };
+            })
+            .styleTween("text-anchor", function(d){
+                this._current = this._current || d;
+                var interpolate = d3.interpolate(this._current, d);
+                this._current = interpolate(0);
+                return function(t) {
+                    var d2 = interpolate(t);
+                    return midAngle(d2) < Math.PI ? "start":"end";
+                };
+            });
+
+        text.exit()
+            .remove();
+
+        /* ------- SLICE TO TEXT POLYLINES -------*/
+
+        var polyline = svg.select(".lines").selectAll("polyline")
+            .data(pie(data), key);
+        
+        polyline.enter()
+            .append("polyline");
+
+        polyline.transition().duration(1000)
+            .attrTween("points", function(d){
+                this._current = this._current || d;
+                var interpolate = d3.interpolate(this._current, d);
+                this._current = interpolate(0);
+                return function(t) {
+                    var d2 = interpolate(t);
+                    var pos = outerArc.centroid(d2);
+                    pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
+                    return [arc.centroid(d2), outerArc.centroid(d2), pos];
+                };			
+            });
+        
+        polyline.exit()
+            .remove();
+    };
+
+    </script>
+    <!-- END AUTHOR -->
 </body>
 </html>
