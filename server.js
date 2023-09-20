@@ -1,8 +1,16 @@
+// Budget API
+const cors = require('cors');
 const express = require('express');
+const fs = require('fs');
 const app = express();
 const port = 3000;
 var data = require('./data.json');
 
+
+
+// serving static content
+// app.use('/', express.static('public'));
+app.use(cors());
 
 const budget = {
   myBudget: [
@@ -26,20 +34,31 @@ const budget = {
 };
 
 
+// serving static content
+/*
 app.get('/hello', (req, res) => {
   res.send('Hello world from Express.js server!');
 });
+/**/
 
+/**/
 app.get('/budget', (req, res) => {
   // res.json(budget);
   res.json(data);
 });
+/**/
+
+/*
+app.get('/budget', (req, res) => {
+  fs.readFile('./data.json', (err, json) => {
+    let obj = JSON.parse(json);
+    res.json(obj);
+  });
+});
+/**/
 
 app.listen(port, () => {
-  console.log(`Example app is listening on http://localhost:${port}`);
+  console.log(`Example API is listening on http://localhost:${port}`);
 });
-
-// static
-app.use('/', express.static('public'));
 
 // app.get('/public')

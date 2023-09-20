@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "pm2 start server.js --watch --ignore-watch='node_modules'",
-    "stop-kill": "pm2 stop server.js && pm2 delete server.js",
-    "name": "echo name"
+    "stop": "pm2 stop server.js && pm2 delete server.js",
+    "restart": "pm2 restart server.js --watch --ignore-watch='node_modules'"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/uzochi-dimkpa/personal-budget#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2"
   }
 }
