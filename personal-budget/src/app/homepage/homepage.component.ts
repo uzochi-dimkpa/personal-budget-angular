@@ -1,15 +1,26 @@
-import { Component, OnInit, AfterViewInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Chart } from 'chart.js/auto';
+
+import * as d3 from "d3";
+// import * as deSelect from 'd3-selection';
+// import * as d3Scale from 'd3';
+// import * as d3Shape from 'd3';
+// import * as d3Array from 'd3';
+// import * as d3Axis from 'd3';
+
+import { DataService } from '../data.service';
+// import * as d3_entries from 'd3/entries';
+// import * as d3_entries from 'd3/entries';
 
 @Component({
   selector: 'pb-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss']
 })
-export class HomepageComponent /* implements OnInit */ { // -- implements AfterViewInit
+export class HomepageComponent implements AfterViewInit { // -- implements OnInit
 
-  constructor (private http: HttpClient) {};
+  constructor (private http: HttpClient, public dataService: DataService) {};
 
   // -- ngAfterViewInit(): void {};
   ngOnInit(): void {
@@ -19,6 +30,8 @@ export class HomepageComponent /* implements OnInit */ { // -- implements AfterV
       console.log(res);
       this.createChart(res);
     });
+
+    this.dataService.ngOnInit();
   }
 
   createChart(data_source: any) {
@@ -31,4 +44,12 @@ export class HomepageComponent /* implements OnInit */ { // -- implements AfterV
     });
   };
 
+
+
+  /**/
+
+
+  ngAfterViewInit(): void {
+    // --
+  };
 }
